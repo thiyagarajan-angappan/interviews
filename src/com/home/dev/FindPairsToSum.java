@@ -5,10 +5,21 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Map.Entry;
 
+/**
+ * Given a string array and a number k at the end of string array
+ * output all the pairs that sum up to k
+ * 
+ * {"3","-2","6","9","0","-2","8","-1","5","1","6"}
+ * (0,6)(-2,8)(1,5) 	
+ * @author tj
+ *
+ */
 public class FindPairsToSum
 {
 	public static void main(String[] args)
 	{
+		String[] test = {"3","-2","6","9","0","-2","8","-1","5","1","6"};
+		args = test;
 		if (args != null && args.length > 0) 
 		{
 			String[] arrayToSearch = Arrays.copyOf(args, args.length-1);
@@ -39,7 +50,7 @@ public class FindPairsToSum
 			{
 				int reminder = num - entry.getKey();
 				
-				if (intMap.get(reminder) != null)
+				if (intMap.get(reminder) != null && entry.getKey() != reminder)
 				{
 					System.out.print("(");
 					System.out.print(entry.getKey());
