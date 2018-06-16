@@ -1,4 +1,4 @@
-package com.home.dev;
+package com.home.dev.collections;
 
 import java.util.LinkedList;
 import java.util.regex.Pattern;
