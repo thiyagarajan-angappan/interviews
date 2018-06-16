@@ -21,11 +21,18 @@ public class FindPairsToSum
 	{
 		if (args != null && args.length > 0)
 		{
-			// consider last argument in input as the number to sum up to
-			String[] arrayToSearch = Arrays.copyOf(args, args.length - 1);
-			int sum = Integer.parseInt(args[args.length - 1]);
-
-			findPairs(arrayToSearch, sum);
+			try
+			{
+				// consider last argument in input as the number to sum up to
+				String[] arrayToSearch = Arrays.copyOf(args, args.length - 1);
+				int sum = Integer.parseInt(args[args.length - 1]);
+	
+				findPairs(arrayToSearch, sum);
+			}
+			catch(Exception e)
+			{
+				System.err.println("unable to find sum\n" + e.getMessage());
+			}
 		}
 	}
 
@@ -37,7 +44,7 @@ public class FindPairsToSum
 	 * @param numberArray
 	 * @param num
 	 */
-	private static void findPairs(String[] numberArray, int num)
+	private static void findPairs(String[] numberArray, int num) throws Exception
 	{
 		Arrays.sort(numberArray);
 		Set<String> stringSet = new HashSet<String>(Arrays.asList(numberArray));
