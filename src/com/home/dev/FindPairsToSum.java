@@ -1,15 +1,16 @@
 package com.home.dev;
 
 import java.util.Arrays;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Map.Entry;
+import java.util.HashSet;
+import java.util.Iterator;
+import java.util.Set;
 
 /**
  * Given a string array and a number k at the end of string array output all the
  * pairs that sum up to k
  * 
- * {"3","-2","6","9","0","-2","8","-1","5","1","6"} (0,6)(-2,8)(1,5)
+ * {"3","-2","6","9","0","-2","8","-1","5","1","6"} 
+ * (0,6)(-2,8)(1,5)
  * 
  * @author tj
  *
@@ -24,59 +25,34 @@ public class FindPairsToSum
 			String[] arrayToSearch = Arrays.copyOf(args, args.length - 1);
 			int sum = Integer.parseInt(args[args.length - 1]);
 
-			// convert to map to remove duplicate numbers
-			Map<Integer, String> intMap = convertToMap(arrayToSearch);
-
-			// find pairs
-			findSumNums(intMap, sum);
+			findPairs(arrayToSearch, sum);
 		}
 	}
 
 	/**
-	 * Sort the array add elements to map eliminating duplicates
+	 * iterate through the array for each number find the reminder that would give
+	 * the sum if it is in the set , print the pairs and remove the item from the
+	 * set
 	 * 
 	 * @param numberArray
-	 * @return Map<Integer, String>
-	 */
-	private static Map<Integer, String> convertToMap(String[] numberArray)
-	{
-		Arrays.sort(numberArray);
-		Map<Integer, String> intMap = new HashMap<Integer, String>();
-		for (String i : numberArray)
-		{
-			intMap.put(Integer.parseInt(i), i);
-		}
-
-		return intMap;
-	}
-
-	/**
-	 * iterate map and print out pairs
-	 * 
-	 * @param intMap
 	 * @param num
 	 */
-	private static void findSumNums(Map<Integer, String> intMap, int num)
+	private static void findPairs(String[] numberArray, int num)
 	{
-		for (Entry<Integer, String> entry : intMap.entrySet())
-		{
-			// will be empty when the number has already been identified as pair
-			if (entry.getValue() != "")
-			{
-				// calculate reminder that would add with the key to resulting in sum number
-				int reminder = num - entry.getKey();
+		Arrays.sort(numberArray);
+		Set<String> stringSet = new HashSet<String>(Arrays.asList(numberArray));
 
-				// find the reminder in map excluding itself
-				// print it out and set the value to empty
-				if (intMap.get(reminder) != null && entry.getKey() != reminder)
-				{
-					System.out.print("(");
-					System.out.print(entry.getKey());
-					System.out.print(",");
-					System.out.print(intMap.get(reminder));
-					System.out.print(")");
-					intMap.put(reminder, "");
-				}
+		Iterator<String> stringIter = stringSet.iterator();
+
+		while (stringIter.hasNext())
+		{
+			int i = Integer.parseInt(stringIter.next());
+			int reminder = num - i;
+
+			if (stringSet.contains(Integer.toString(reminder)))
+			{
+				System.out.print("(" + i + "," + reminder + ")");
+				stringIter.remove();
 			}
 		}
 	}
