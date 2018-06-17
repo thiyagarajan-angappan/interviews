@@ -14,6 +14,7 @@ public class FindSumLL_Util
 {
 	public static void main(String[] args)
 	{
+		long startTime = System.nanoTime();
 		LinkedList<Integer> intList1 = new LinkedList<Integer>();
 		LinkedList<Integer> intList2 = new LinkedList<Integer>();
 		
@@ -33,6 +34,8 @@ public class FindSumLL_Util
 		{
 			System.err.println("Error while finding sum : " + e.getMessage());
 		}
+		long endTime = System.nanoTime();
+		System.out.println("\ntime taken = " + (endTime-startTime) + " ns");
 	}
     
 	/**
